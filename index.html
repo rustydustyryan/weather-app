@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Weather Today</title>
+</head>
+<body>
+    <div class="weather-container">
+        <h1>Weather 
+            <br>
+            Today</h1>
+            <h2></h2>
+        <div class="temp-container">
+            <p class="current-temp"><span id="current-temp"></span>°F</p>
+            <canvas id="weather-icon" width="130" height="130"></canvas>
+            <span class="low"><p>L: <span id="low-temp"></span>°F</p></span>
+            <span class="high"><p>H: <span id="high-temp"></span>°F</p></span>
+        </div>
+        <div class="wind-container">
+            <p>Wind Speed: <span id="wind-speed"></span> mph</p>
+            <p>Precipitation: <span id="precipitation"></span> inch</p>
+        </div>
+    </div>
+
+    <script src="skycons.js"></script>
+    <script>
+        // JavaScript code to fetch weather data and update HTML
+
+        // Function to fetch weather data from the API
+        async function fetchWeatherData(latitude, longitude) {
+            try {
+                // Construct the API URL using the user's location
+                const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timeformat=unixtime&timezone=America%2FDenver`;
+
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const day = data.current_weather.is_day;
+
+                console.log(data);
+
+                // Update HTML elements with weather data
+                document.getElementById('current-temp').textContent = data.current_weather.temperature;
+                document.getElementById('low-temp').textContent = data.daily.temperature_2m_min[day];
+                document.getElementById('high-temp').textContent = data.daily.temperature_2m_max[day];
+                document.getElementById('wind-speed').textContent = data.current_weather.windspeed;
+                document.getElementById('precipitation').textContent = data.daily.precipitation_sum[day];
+
+                // Display the weather icon using Skycons
+                const skycons = new Skycons({ color: '#fce8ae' });
+                const weatherIcon = data.current_weather.weathercode;
+                const h2 = document.querySelector('h2');
+                if(
+                    weatherIcon === 0 | 
+                    weatherIcon === 1) {
+                    skycons.add('weather-icon', Skycons.CLEAR_DAY);
+                    h2.textContent = 'Sunny';
+                    // skycons.add('weather-icon', Skycons.PARTLY_CLOUDY_DAY);
+                } else if(
+                    weatherIcon === 2) {
+                    skycons.add('weather-icon', Skycons.PARTLY_CLOUDY_DAY);
+                    h2.textContent = 'Partly Cloudy';
+                } else if(
+                    weatherIcon === 3) {
+                    skycons.add('weather-icon', Skycons.CLOUDY);
+                    skycons.color = '#808080';
+                    h2.textContent = 'Overcast';
+                } else if(
+                    weatherIcon === 51 | 
+                    weatherIcon === 53 | 
+                    weatherIcon === 55 | 
+                    weatherIcon === 56 | 
+                    weatherIcon === 57 | 
+                    weatherIcon === 61 | 
+                    weatherIcon === 63 | 
+                    weatherIcon === 65 | 
+                    weatherIcon === 80 | 
+                    weatherIcon === 81 | 
+                    weatherIcon === 82) {
+                    skycons.add('weather-icon', Skycons.RAIN);
+                    skycons.color = '#061e37';
+                    h2.textContent = 'Rainy';
+                } else if(
+                    weatherIcon === 66 | 
+                    weatherIcon === 67) {
+                    skycons.add('weather-icon', Skycons.SLEET);
+                    skycons.color = '#808080';
+                    h2.textContent = 'Sleet';
+                } else if(
+                    weatherIcon === 71 | 
+                    weatherIcon === 73 | 
+                    weatherIcon === 75 | 
+                    weatherIcon === 77 | 
+                    weatherIcon === 85 | 
+                    weatherIcon === 86) {
+                    skycons.add('weather-icon', Skycons.SNOW);
+                    skycons.color = '#fff';
+                    h2.textContent = 'Snowy';
+                } else if(
+                    weatherIcon === 7) {
+                    skycons.add('weather-icon', Skycons.WIND);
+                    h2.textContent = 'Windy';
+                } else if(
+                    weatherIcon === 45 | 
+                    weatherIcon === 48) {
+                    skycons.add('weather-icon', Skycons.FOG);
+                    skycons.color = '#808080';
+                    h2.textContent = 'Foggy';
+                }
+                skycons.play();
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+            }
+        }
+
+        // Function to get the user's location
+        function getUserLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Call the function to fetch weather data using the user's location
+                    fetchWeatherData(latitude, longitude);
+                }, (error) => {
+                    console.error('Error getting user location:', error);
+                });
+            } else {
+                console.error('Geolocation is not available in this browser.');
+            }
+        }
+
+        // Call the function to get the user's location and fetch weather data
+        getUserLocation();
+    </script>
+</body>
+</html>
