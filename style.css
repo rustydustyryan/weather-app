@@ -100,7 +100,7 @@ h2 {
   font-size: 1.8rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   h1 {
     font-size: 2.7rem;
     padding: 1rem 0;
@@ -108,22 +108,27 @@ h2 {
   
   .weather-container {
     width: 93%;
-    height: 70%;
-    padding: .5rem;
+    /* height: 70%; */
+    padding: 1rem;
     margin: auto;
     gap: 0;
   }
 
   canvas {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
   }
 
   .temp-container {
+    grid-template-columns: repeat(1, 1fr);
     justify-items: space-evenly;
     grid-gap: 1rem;
     padding: 1rem;
     margin: 0;
+  }
+
+  .temp-container > #weather-icon {
+    margin-top: .5rem;
   }
 
   #current-temp {
@@ -132,14 +137,20 @@ h2 {
 
   .current-temp {
     font-size: 2.5rem;
-  align-items: center;
+    align-items: center;
+  }
+
+  .wind-container {
+    padding-bottom: 1rem;
   }
 
   .low {
     font-size: 1.5rem;
+    margin-top: 1rem;
   }
 
   .high {
     font-size: 1.5rem;
+    margin-top: 0;
   }
 }
