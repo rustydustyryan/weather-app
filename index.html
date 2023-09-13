@@ -51,6 +51,7 @@
                 const skycons = new Skycons({ color: '#fce8ae' });
                 const weatherIcon = data.current_weather.weathercode;
                 const h2 = document.querySelector('h2');
+                const weatherContainer = document.querySelector('.weather-container');
                 if(
                     weatherIcon === 0 | 
                     weatherIcon === 1) {
@@ -64,8 +65,10 @@
                 } else if(
                     weatherIcon === 3) {
                     skycons.add('weather-icon', Skycons.CLOUDY);
-                    skycons.color = '#808080';
+                    skycons.color = '#646464';
                     h2.textContent = 'Overcast';
+                    h2.style.color = '#646464';
+                    weatherContainer.style.background = '#a8bac5';
                 } else if(
                     weatherIcon === 51 | 
                     weatherIcon === 53 | 
@@ -79,14 +82,18 @@
                     weatherIcon === 81 | 
                     weatherIcon === 82) {
                     skycons.add('weather-icon', Skycons.RAIN);
-                    skycons.color = '#061e37';
+                    skycons.color = '#646464';
                     h2.textContent = 'Rainy';
+                    h2.style.color = '#646464';
+                    weatherContainer.style.background = '#a8bac5';
                 } else if(
                     weatherIcon === 66 | 
                     weatherIcon === 67) {
                     skycons.add('weather-icon', Skycons.SLEET);
-                    skycons.color = '#808080';
+                    skycons.color = '#646464';
                     h2.textContent = 'Sleet';
+                    h2.style.color = '#646464';
+                    weatherContainer.style.background = '#a8bac5';
                 } else if(
                     weatherIcon === 71 | 
                     weatherIcon === 73 | 
@@ -97,6 +104,8 @@
                     skycons.add('weather-icon', Skycons.SNOW);
                     skycons.color = '#fff';
                     h2.textContent = 'Snowy';
+                    h2.style.color = '#fff';
+                    weatherContainer.style.background = '#a8bac5';
                 } else if(
                     weatherIcon === 7) {
                     skycons.add('weather-icon', Skycons.WIND);
@@ -105,8 +114,10 @@
                     weatherIcon === 45 | 
                     weatherIcon === 48) {
                     skycons.add('weather-icon', Skycons.FOG);
-                    skycons.color = '#808080';
+                    skycons.color = '#646464';
                     h2.textContent = 'Foggy';
+                    h2.style.color = '#646464';
+                    weatherContainer.style.background = '#a8bac5';
                 }
                 skycons.play();
             } catch (error) {

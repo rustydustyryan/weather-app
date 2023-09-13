@@ -9,7 +9,8 @@
   --5: #fffce8;
   --6: #433469;
   --7: #79ccfc;
-  --8: #808080;
+  /* --7: #a8bac5; */
+  --8: #646464;
 }
 
 * {
@@ -46,10 +47,7 @@ h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
   padding: 2rem 0 2rem 0;
-  margin: 1rem;
-  /* border: var(--4) 4px solid; */
   border-radius: 1rem;
   background: linear-gradient(var(--7), var(--7));
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
