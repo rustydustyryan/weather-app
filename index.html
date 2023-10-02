@@ -48,6 +48,7 @@
                 document.getElementById('precipitation').textContent = data.daily.precipitation_sum[day];
 
                 // Display the weather icon using Skycons
+                // const body = document.querySelector('body');
                 const skycons = new Skycons({ color: '#fce8ae' });
                 const weatherIcon = data.current_weather.weathercode;
                 const h2 = document.querySelector('h2');
@@ -69,6 +70,7 @@
                     h2.textContent = 'Overcast';
                     h2.style.color = '#646464';
                     weatherContainer.style.background = '#a8bac5';
+                    document.body.style.backgroundImage = 'linear-gradient(#646464, #a8bac5)';
                 } else if(
                     weatherIcon === 51 | 
                     weatherIcon === 53 | 
@@ -86,6 +88,7 @@
                     h2.textContent = 'Rainy';
                     h2.style.color = '#646464';
                     weatherContainer.style.background = '#a8bac5';
+                    document.body.style.backgroundImage = 'linear-gradient(#646464, #324679)';
                 } else if(
                     weatherIcon === 66 | 
                     weatherIcon === 67) {
@@ -94,6 +97,7 @@
                     h2.textContent = 'Sleet';
                     h2.style.color = '#646464';
                     weatherContainer.style.background = '#a8bac5';
+                    document.body.style.backgroundImage = 'linear-gradient(#646464, #a8bac5)';
                 } else if(
                     weatherIcon === 71 | 
                     weatherIcon === 73 | 
@@ -106,6 +110,7 @@
                     h2.textContent = 'Snowy';
                     h2.style.color = '#fff';
                     weatherContainer.style.background = '#a8bac5';
+                    document.body.style.backgroundImage = 'linear-gradient(#646464, #fff)';
                 } else if(
                     weatherIcon === 7) {
                     skycons.add('weather-icon', Skycons.WIND);
@@ -118,6 +123,7 @@
                     h2.textContent = 'Foggy';
                     h2.style.color = '#646464';
                     weatherContainer.style.background = '#a8bac5';
+                    document.body.style.backgroundImage = '#a8bac5';
                 }
                 skycons.play();
             } catch (error) {

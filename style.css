@@ -29,6 +29,7 @@ body {
   align-items: center;
   overflow: hidden;
   background: linear-gradient(var(--5), var(--7));
+  /* background: linear-gradient(#061e37, #fff); */
   color: var(--2);
 }
 
